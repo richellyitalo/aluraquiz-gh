@@ -1,5 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Head from 'next/head';
 import db from '../db.json';
+import MetaTags from '../src/components/MetaTags';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -27,6 +29,11 @@ const theme = db.theme;
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>Alura Quiz</title>
+        <MetaTags />
+      </Head>
+      
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Component {...pageProps} />
