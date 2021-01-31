@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
 import db from '../db.json';
@@ -20,11 +21,41 @@ export const QuizContainer = styled.div`
   }
 `;
 
+const QuizInput = styled.input`
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #777;
+  border-radius: 2px;
+  padding: 10px 0;
+  text-indent: 10px;
+  outline: none;
+  color: #ddd;
+`;
+
+const QuizButton = styled.button`
+  margin-top: 15px;
+  color: #fff;
+  background-color: #ff9800;
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  height: 30px;
+`;
+
 export default function Home() {
   const [name, setName] = React.useState('');
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    router.push(`quiz/?name=${name}`);
   };
 
   return (
@@ -42,15 +73,18 @@ export default function Home() {
 
         <Widget>
           <Widget.Content>
-            <form onSubmit="">
-              <input type="text" onChange={handleInputChange} />
-              <button
+            <form onSubmit={handleSubmit}>
+              <QuizInput
+                type="text"
+                onChange={handleInputChange}
+                placeholder="Informe seu nome"
+              />
+              <QuizButton
                 type="submit"
                 disabled={isEmpty(name)}
               >
-                Jogar
-                {name}
-              </button>
+                Iniciar jogo
+              </QuizButton>
             </form>
           </Widget.Content>
         </Widget>
