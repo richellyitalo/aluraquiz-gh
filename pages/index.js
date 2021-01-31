@@ -1,3 +1,5 @@
+import React from 'react';
+
 import styled from 'styled-components';
 import db from '../db.json';
 import Widget from '../src/components/Widget';
@@ -5,6 +7,7 @@ import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
+import isEmpty from '../src/util/isEmpty';
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -18,6 +21,12 @@ export const QuizContainer = styled.div`
 `;
 
 export default function Home() {
+  const [name, setName] = React.useState('');
+
+  const handleInputChange = (e) => {
+    setName(e.target.value);
+  };
+
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
@@ -33,14 +42,21 @@ export default function Home() {
 
         <Widget>
           <Widget.Content>
-            <h1>Quizes da Galera</h1>
-
-            <p>lorem ipsum dolor sit amet...</p>
+            <form onSubmit="">
+              <input type="text" onChange={handleInputChange} />
+              <button
+                type="submit"
+                disabled={isEmpty(name)}
+              >
+                Jogar
+                {name}
+              </button>
+            </form>
           </Widget.Content>
         </Widget>
         <Footer />
       </QuizContainer>
-      <GitHubCorner projectUrl="https://github.com/omariosouto" />
+      <GitHubCorner projectUrl="https://github.com/richellyitalo/aluraquiz-gh" />
     </QuizBackground>
   );
 }

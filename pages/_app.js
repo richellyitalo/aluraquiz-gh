@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const theme = db.theme;
+const { theme } = db;
 
 export default function App({ Component, pageProps }) {
   return (
@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
         <title>Alura Quiz</title>
         <MetaTags />
       </Head>
-      
+
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Component {...pageProps} />
